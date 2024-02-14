@@ -5,7 +5,7 @@ from Draw import pet_img
 #Notes
 #Create Sprite Slicer in Draw.py
 
-pet = Stats("Billy",100,100,False,160)
+pet = Stats("Billy",100,100,False)
 
 
 # Press the green button in the gutter to run the script.
@@ -53,16 +53,11 @@ while running:
     #Check Stats
     if keys[pygame.K_i]:
         pet.write_stats()
-    dis = 40
+
+    #Animation
+    pet.animate(animation)
+
     #Test
-    if(animation > 1):
-        if a_flip:
-            pet.sprite_width = 160
-            a_flip = False
-        else:
-            pet.sprite_width = 180/2
-            a_flip = True
-        animation = 0
     if keys[pygame.K_e]:
         #print("Change")
         pass
@@ -80,6 +75,8 @@ while running:
     dt = clock.tick(60)/1000
 
     #Animation
+    if animation > 1:
+        animation = 0
     animation += dt
     print(animation)
 

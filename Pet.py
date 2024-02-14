@@ -8,17 +8,22 @@ class Evolution:
         pass
 
 class Stats(Evolution):
-    def __init__(self,name,hp,hunger,injured,sprite_width):
+    def __init__(self,name,hp,hunger,injured):
         self.name = name
         self.hp = hp
         self.hunger = hunger
         self.injured = injured
-        self.sprite_width = sprite_width
 
     pos_x, pos_y = 200,0
     spr_size = 68
+
+    #Movement
     speed = 4
     right = True
+
+    #Sprite Animations
+    sprite_width = 160
+    a_flip = False
 
     def write_stats(self):
         print(f"Name: {self.name} HP: {self.hp},Hunger: {self.hunger}, Injured: {self.injured},Stage: {self.stage}Pos: {self.pos_x},{self.pos_y}")
@@ -46,5 +51,11 @@ class Stats(Evolution):
                 print(self.right)
 
     #Animation
-    def animate(self):
-        pass
+    def animate(self,_time):
+        if (_time > 1):
+            if self.a_flip:
+                self.sprite_width = 160
+                self.a_flip = False
+            else:
+                self.sprite_width = 180 / 2
+                self.a_flip = True
