@@ -1,34 +1,39 @@
-import pygame
 from Pet import Stats
 from Draw import draw
-from Draw import pet_img
+
 #Notes
-#Create Sprite Slicer in Draw.py
-
-pet = Stats("Billy",100,100,False)
-
-
-# Press the green button in the gutter to run the script.
+#Create Feeding
+#Create Medication
+#Fighting System
+#Clean Up Text
+#
 
 # Example file showing a basic pygame "game loop"
 import pygame
 
 # pygame setup
 pygame.init()
-
+#Set Font
 basic_font = pygame.font.SysFont('Comic Sans MS', 30)
 
+#Objects
+pet = Stats("Pet",100,100,False)
 
-
+#Pygame Setup
 screen = pygame.display.set_mode((1280, 720))
+pygame.display.set_caption("Sim Pet")
 clock = pygame.time.Clock()
 running = True
 dt = 0
-animation = 0
+animation = 1
 a_flip = True
+paused = False
+pause_time = 0
 
-#Set Pet Posistion
+#Set Pet Position
 pet.pos_x = screen.get_width()/2-pet.sprite_width/2
+#Set Starting Frame
+pet.sprite_width = pet.spr_frame[0]
 
 while running:
     # poll for events
@@ -40,10 +45,11 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
+    #Animation
+    pet.animate(animation,screen.get_width())
+
     #Draw
-    draw(screen,pet.pos_x,pet.spr_size,pet.sprite_width)
-    my_font = basic_font.render(f"HP: {pet.hp}\nHunger: {pet.hunger}\nInjured: {pet.injured}", 0, "white")
-    screen.blit(my_font, (10, 10))
+    draw(screen,pet.pos_x,pet.spr_size,pet.sprite_width,basic_font,pet)
 
     #Contols
     keys = pygame.key.get_pressed()
@@ -57,17 +63,12 @@ while running:
     if keys[pygame.K_i]:
         pet.write_stats()
 
-    #Animation
-    pet.animate(animation)
-
     #Test
     if keys[pygame.K_e]:
-        #print("Change")
         pass
 
     #Auto
     pet.grow(animation)
-
 
     # RENDER YOUR GAME HERE
 
@@ -78,7 +79,7 @@ while running:
     dt = clock.tick(60)/1000
 
     #Animation
-    if animation > 1:
+    if animation >= 1:
         animation = 0
     animation += dt
     #print(f"Time: {animation}")
