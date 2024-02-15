@@ -1,5 +1,6 @@
 class Evolution:
     stage = 0
+    time = 0
 
     def evolve(self):
         self.stage += 1
@@ -14,14 +15,21 @@ class Stats(Evolution):
         self.hunger = hunger
         self.injured = injured
 
-    pos_x, pos_y = 200,0
-    spr_size = 68
+    #Pet Position
+    pos_x, pos_y = 0,0
+
+    #0-First Frame,1-Second Frame
+    spr_frame = [0,66]
+    #Size of individual sprite
+    spr_size = 58
 
     #Movement
     speed = 4
+    #Left and Right switch
     right = True
 
     #Sprite Animations
+    #Total Width of Sprite Sheet
     sprite_width = 160
     a_flip = False
 
@@ -54,8 +62,18 @@ class Stats(Evolution):
     def animate(self,_time):
         if (_time > 1):
             if self.a_flip:
-                self.sprite_width = 160
+                self.sprite_width = self.spr_frame[0]
                 self.a_flip = False
             else:
-                self.sprite_width = 180 / 2
+                self.sprite_width = self.spr_frame[1]
                 self.a_flip = True
+
+    #Grow
+    def grow(self,_time):
+        #Egg
+        if self.stage == 0:
+            if self.time > 50:
+                self.evolve()
+                print(f"Evolved! Stage: {self.stage}")
+            self.time += _time
+            #print(f"Time: {self.time}/{50}")

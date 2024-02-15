@@ -27,6 +27,9 @@ dt = 0
 animation = 0
 a_flip = True
 
+#Set Pet Posistion
+pet.pos_x = screen.get_width()/2-pet.sprite_width/2
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -63,7 +66,7 @@ while running:
         pass
 
     #Auto
-    #pet.move(screen.get_width())
+    pet.grow(animation)
 
 
     # RENDER YOUR GAME HERE
@@ -78,7 +81,7 @@ while running:
     if animation > 1:
         animation = 0
     animation += dt
-    print(animation)
+    #print(f"Time: {animation}")
 
 pygame.quit()
 
