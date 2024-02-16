@@ -1,28 +1,26 @@
+import time
+class Stats:
+    def __init__(self,_name,_hp,_hunger,_injured):
+        self.name = _name
+        self.hp = _hp
+        self.hunger = _hunger
+        self.injured = _injured
 
-class Evolution:
+    #Evolution
     stage = 0
-    time = 0
-
-    def evolve(self):
-        self.stage += 1
-
-class Stats(Evolution):
-    def __init__(self,name,hp,hunger,injured):
-        self.name = name
-        self.hp = hp
-        self.hunger = hunger
-        self.injured = injured
+    clock = 0
 
     #Pet Position
     pos_x, pos_y = 0,0
 
     #0-First Frame,1-Second Frame,etc.
     spr_frame = [0,66,118,160]
+
     #Size of individual sprite
     spr_size = 56
 
     #Movement
-    speed = 4
+    speed = 3
     #Left and Right switch
     right = True
 
@@ -32,11 +30,17 @@ class Stats(Evolution):
     a_flip = False
 
     def write_stats(self):
-        print(f"Name: {self.name} HP: {self.hp},Hunger: {self.hunger}, Injured: {self.injured},Stage: {self.stage}Pos: {self.pos_x},{self.pos_y}")
+        print(f"Name: {self.name} HP: {self.hp}| Hunger: {self.hunger}| Injured: {self.injured}| Stage: {self.stage}| X/Y:{self.pos_x},{self.pos_y}")
 
-    #Set
-
-
+    def feed(self,_filling):
+        if self.stage > 0:
+            if self.hunger < 100:
+                self.hunger += _filling
+                print("Fed")
+                if self.hunger > 100:
+                    self.hunger = 100
+            else:
+                print("Not Hungry")
     #Movement
     def move(self,_screen_width):
         if self.right:
@@ -54,7 +58,7 @@ class Stats(Evolution):
     #Animation
     def animate(self,_time,_screen_width):
         if self.stage == 0:
-            if (_time > 1):
+            if _time > 1:
                 if self.a_flip:
                     self.sprite_width = self.spr_frame[0]
                     self.a_flip = False
@@ -63,22 +67,29 @@ class Stats(Evolution):
                     self.a_flip = True
         if self.stage == 1:
             #Out of combat
-            if (_time > 1):
+            if _time > 1:
                 if self.a_flip:
                     self.sprite_width = self.spr_frame[2]
                     self.a_flip = False
                 else:
                     self.sprite_width = self.spr_frame[3]
                     self.a_flip = True
-            #s trfelf.move(_screen_width)
+            #self.move(_screen_width)
     #Grow
-    def grow(self,_time):
+
+    def evolve(self):
+        self.stage += 1
+
+    def grow(self,_clock):
         #Egg
         if self.stage == 0:
-            if self.time > 50:
+            if self.clock > 50:
                 self.evolve()
                 self.hunger = 20
                 print(f"Evolved! Stage: {self.stage}")
+                print("Sleep...(1)")
+                time.sleep(1)
+                print("Continue")
 
-        self.time += _time
-        #print(f"Time: {self.time}/{50}")
+        self.clock += _clock
+        #print(f"Time: {self.clock}/{50}")

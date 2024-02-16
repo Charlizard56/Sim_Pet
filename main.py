@@ -1,6 +1,7 @@
 from Pet import Stats
 from Draw import draw
 
+
 #Notes
 #Create Feeding
 #Create Medication
@@ -42,8 +43,21 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        #Controls
+        if event.type == pygame.KEYDOWN:
+            #Feed
+            if event.key == pygame.K_f:
+                pet.feed(10)
+
+            #End Game
+            if event.key == pygame.K_ESCAPE:
+                running = False
+                print("Game End")
+
+
+
     # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.fill("blue")
 
     #Animation
     pet.animate(animation,screen.get_width())
@@ -51,26 +65,8 @@ while running:
     #Draw
     draw(screen,pet.pos_x,pet.spr_size,pet.sprite_width,basic_font,pet)
 
-    #Contols
-    keys = pygame.key.get_pressed()
-    #End Game
-    if keys[pygame.K_ESCAPE]:
-        running = False
-        print("Game End")
-
-    #Debug
-    #Check Stats
-    if keys[pygame.K_i]:
-        pet.write_stats()
-
-    #Test
-    if keys[pygame.K_e]:
-        pass
-
     #Auto
     pet.grow(animation)
-
-    # RENDER YOUR GAME HERE
 
     # flip() the display to put your work on screen
     pygame.display.flip()
