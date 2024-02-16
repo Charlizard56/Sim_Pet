@@ -3,10 +3,10 @@ from Draw import draw
 
 
 #Notes
-#Create Feeding
-#Create Medication
+#Reconstruct text(Maybe into groups)
+#Create Medication function
 #Fighting System
-#Clean Up Text
+#
 #
 
 # Example file showing a basic pygame "game loop"
@@ -18,7 +18,7 @@ pygame.init()
 basic_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 #Objects
-pet = Stats("Pet",100,100,False)
+pet = Stats("Pet",100,100,True)
 
 #Pygame Setup
 screen = pygame.display.set_mode((1280, 720))
@@ -43,16 +43,26 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        #Controls
+        #Keyboard
         if event.type == pygame.KEYDOWN:
             #Feed
             if event.key == pygame.K_f:
                 pet.feed(10)
 
+            #Heal
+            if event.key == pygame.K_h:
+                pet.heal(20)
+
             #End Game
             if event.key == pygame.K_ESCAPE:
                 running = False
                 print("Game End")
+
+        # Mouse
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_presses = pygame.mouse.get_pressed()
+            if mouse_presses[0]:
+                print(f"Left Mouse key was clicked: POS: {pygame.mouse.get_pos()}")
 
 
 
