@@ -32,6 +32,7 @@ class Stats:
     def write_stats(self):
         print(f"Name: {self.name} HP: {self.hp}| Hunger: {self.hunger}| Injured: {self.injured}| Stage: {self.stage}| X/Y:{self.pos_x},{self.pos_y}")
 
+    #Care
     def feed(self,_filling):
         if self.stage > 0:
             if self.hunger < 100:
@@ -41,6 +42,16 @@ class Stats:
                     self.hunger = 100
             else:
                 print("Not Hungry")
+
+    def heal(self,_power):
+        if self.stage > 0:
+            if self.injured:
+                self.injured = False
+                print("Healed")
+            else:
+                print("Not Injured")
+
+
     #Movement
     def move(self,_screen_width):
         if self.right:
@@ -88,7 +99,7 @@ class Stats:
                 self.hunger = 20
                 print(f"Evolved! Stage: {self.stage}")
                 print("Sleep...(1)")
-                time.sleep(1)
+                #time.sleep(1)
                 print("Continue")
 
         self.clock += _clock
