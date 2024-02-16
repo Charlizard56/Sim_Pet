@@ -1,2 +1,3 @@
-A virtual pet heavily inspired by Digimon
-Made with Pygame
+A virtual pet game heavily inspired by Digimon.
+
+#Made with Pygame#
