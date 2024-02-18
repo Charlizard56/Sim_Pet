@@ -1,10 +1,9 @@
 from Pet import Stats
 from Draw import draw
 
-
 #Notes
-#Reconstruct text(Maybe into groups)
-#Create Medication function
+#Reconstruct draw text(Maybe into groups)
+#Reconstruct png's
 #Fighting System
 #
 #
@@ -18,7 +17,7 @@ pygame.init()
 basic_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 #Objects
-pet = Stats("Pet",100,100,True)
+pet = Stats("Pet",10,100,False)
 
 #Pygame Setup
 screen = pygame.display.set_mode((1280, 720))
@@ -73,7 +72,7 @@ while running:
     pet.animate(animation,screen.get_width())
 
     #Draw
-    draw(screen,pet.pos_x,pet.spr_size,pet.sprite_width,basic_font,pet)
+    draw(screen,pet.pos_x,pet.spr_size,pet.sprite_width,basic_font,pet,pet.dead)
 
     #Auto
     pet.grow(animation)

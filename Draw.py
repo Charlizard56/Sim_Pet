@@ -19,7 +19,7 @@ grass_img = pygame.transform.scale(grass_img,(120,120))
 
 
 
-def draw(_screen,_pet_x,_spr_size,_sprite_frame,_basic_font,_pet):
+def draw(_screen,_pet_x,_spr_size,_sprite_frame,_basic_font,_pet,_dead):
     #HUD
     _screen.blit(burger_img,(2,r_spr_size))
     _screen.blit(potion_img, (2, r_spr_size*2))
@@ -49,5 +49,5 @@ def draw(_screen,_pet_x,_spr_size,_sprite_frame,_basic_font,_pet):
     except:
         print("Failed to draw ground.")
     #Pet
-
-    _screen.blit(pet_img, (_pet_x,_screen.get_height()-120),(_sprite_frame, 0,_spr_size,_spr_size))
+    if _dead == False:
+        _screen.blit(pet_img, (_pet_x,_screen.get_height()-120),(_sprite_frame, 0,_spr_size,_spr_size))

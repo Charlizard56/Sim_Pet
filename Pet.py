@@ -1,10 +1,12 @@
-import time
+
 class Stats:
     def __init__(self,_name,_hp,_hunger,_injured):
         self.name = _name
         self.hp = _hp
         self.hunger = _hunger
         self.injured = _injured
+
+    dead = False
 
     #Evolution
     stage = 0
@@ -91,16 +93,30 @@ class Stats:
     def evolve(self):
         self.stage += 1
 
-    def grow(self,_clock):
-        #Egg
-        if self.stage == 0:
-            if self.clock > 50:
-                self.evolve()
-                self.hunger = 20
-                print(f"Evolved! Stage: {self.stage}")
-                print("Sleep...(1)")
-                #time.sleep(1)
-                print("Continue")
+    def death(self):
+        if self.hp <= 0:
+            self.dead = True
+            print("your pet has died")
 
-        self.clock += _clock
-        #print(f"Time: {self.clock}/{50}")
+    def grow(self,_clock):
+        if not self.dead:
+            #Egg
+            if self.stage == 0:
+                if self.clock >= 60:
+                    self.evolve()
+                    self.hunger = 0
+                    self.clock = 0
+                    print(f"Evolved! Stage: {self.stage}")
+            #Time
+            if self.stage is not 0:
+                if self.clock >= 200:
+                    #Health
+                    if self.hunger == 0 and self.hp != 0:
+                        self.hp -= 5
+                    #Hunger
+                    if self.hunger != 0:
+                        self.hunger -= 1
+                    self.clock = 0
+            self.death()
+            self.clock += _clock
+            #print(f"Time: {self.clock}/{60}")
