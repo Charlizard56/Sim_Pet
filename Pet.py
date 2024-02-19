@@ -1,16 +1,15 @@
 
 class Stats:
-    def __init__(self,_name,_hp,_hunger,_injured):
+    def __init__(self,_name,_hp,_food,_injured):
         self.name = _name
         self.hp = _hp
-        self.hunger = _hunger
+        self.food = _food
         self.injured = _injured
 
     dead = False
 
     #Evolution
-    stage = 0
-    clock = 0
+    stage, clock = 0, 0
 
     #Pet Position
     pos_x, pos_y = 0,0
@@ -32,20 +31,20 @@ class Stats:
     a_flip = False
 
     def write_stats(self):
-        print(f"Name: {self.name} HP: {self.hp}| Hunger: {self.hunger}| Injured: {self.injured}| Stage: {self.stage}| X/Y:{self.pos_x},{self.pos_y}")
+        print(f"Name: {self.name} HP: {self.hp}| Hunger: {self.food}| Injured: {self.injured}| Stage: {self.stage}| X/Y:{self.pos_x},{self.pos_y}")
 
     #Care
     def feed(self,_filling):
         if self.stage > 0:
-            if self.hunger < 100:
-                self.hunger += _filling
+            if self.food < 100:
+                self.food += _filling
                 print("Fed")
-                if self.hunger > 100:
-                    self.hunger = 100
+                if self.food > 100:
+                    self.food = 100
             else:
                 print("Not Hungry")
 
-    def heal(self,_power):
+    def bandage(self):
         if self.stage > 0:
             if self.injured:
                 self.injured = False
@@ -53,6 +52,14 @@ class Stats:
             else:
                 print("Not Injured")
 
+    def heal(self):
+        if not self.injured and self.hp < 100:
+            self.hp += 1
+        if self.hp > 100:
+            self.hp = 100
+        #injured
+        if self.hp < 30:
+            self.injured = True
 
     #Movement
     def move(self,_screen_width):
@@ -92,6 +99,9 @@ class Stats:
 
     def evolve(self):
         self.stage += 1
+        self.food = 25
+        self.clock = 0
+        print(f"Evolved! Stage: {self.stage}")
 
     def death(self):
         if self.hp <= 0:
@@ -102,20 +112,21 @@ class Stats:
         if not self.dead:
             #Egg
             if self.stage == 0:
+                self.name = "[Egg]"
                 if self.clock >= 60:
                     self.evolve()
-                    self.hunger = 0
-                    self.clock = 0
-                    print(f"Evolved! Stage: {self.stage}")
             #Time
             if self.stage is not 0:
-                if self.clock >= 200:
+                self.name = "[Nobody]"
+                if self.clock >= 60:
+                    print("tick")
                     #Health
-                    if self.hunger == 0 and self.hp != 0:
+                    self.heal()
+                    if self.food == 0 and self.hp != 0:
                         self.hp -= 5
                     #Hunger
-                    if self.hunger != 0:
-                        self.hunger -= 1
+                    if self.food != 0:
+                        self.food -= 1
                     self.clock = 0
             self.death()
             self.clock += _clock

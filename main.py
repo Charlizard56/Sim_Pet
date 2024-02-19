@@ -17,7 +17,7 @@ pygame.init()
 basic_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 #Objects
-pet = Stats("Pet",10,100,False)
+pet = Stats("Rex",100,100,False)
 
 #Pygame Setup
 screen = pygame.display.set_mode((1280, 720))
@@ -39,6 +39,7 @@ while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
+        #Quit
         if event.type == pygame.QUIT:
             running = False
 
@@ -50,7 +51,7 @@ while running:
 
             #Heal
             if event.key == pygame.K_h:
-                pet.heal(20)
+                pet.bandage()
 
             #End Game
             if event.key == pygame.K_ESCAPE:

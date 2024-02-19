@@ -30,7 +30,7 @@ def draw(_screen,_pet_x,_spr_size,_sprite_frame,_basic_font,_pet,_dead):
     a = 0
 
     #Text
-    pet_stats = _basic_font.render(f"HP: {_pet.hp}\nHunger: {_pet.hunger}\nInjured: {_pet.injured}", 0, "white")
+    pet_stats = _basic_font.render(f"{_pet.name} HP: {_pet.hp}\nFood: {_pet.food}\nInjured: {_pet.injured}", 0, "white")
     feed_text = _basic_font.render("F: Feed",0, 'white')
     heal_text = _basic_font.render("H: Heal", 0, 'white')
 
